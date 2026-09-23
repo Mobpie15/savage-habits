@@ -1,0 +1,12 @@
+node_modules/
+android/
+.expo/
+dist/
+web-build/
+*.log
+build-local.log
+ndk-install.log
+run-build.bat
+wait-and-build.bat
+install-ndk.bat
+.DS_Store
