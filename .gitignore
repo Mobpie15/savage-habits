@@ -10,3 +10,4 @@ run-build.bat
 wait-and-build.bat
 install-ndk.bat
 .DS_Store
+apk-out/
