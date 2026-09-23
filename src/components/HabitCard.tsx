@@ -1,8 +1,10 @@
 import { memo } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import * as Haptics from 'expo-haptics';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { Habit } from '../store/useHabits';
-import { T } from './theme';
+import { HabitGlyph } from './icons';
+import { F, T } from './theme';
 
 type Props = {
   habit: Habit;
@@ -25,21 +27,21 @@ export const HabitCard = memo(function HabitCard({ habit, done, streak, rate, on
       style={[styles.card, done && { borderColor: habit.color }]}
     >
       <View style={[styles.iconBox, { backgroundColor: habit.color + '22' }]}>
-        <Text style={styles.icon}>{habit.icon}</Text>
+        <HabitGlyph iconKey={habit.icon} color={habit.color} size={26} />
       </View>
       <View style={styles.mid}>
         <Text style={styles.name} numberOfLines={1}>
           {habit.name}
         </Text>
         <Text style={styles.sub}>
-          {habit.kind === 'quit' ? '🚫 quit' : '🌱 build'} • 🔥 {streak} • {rate}%
+          {habit.kind === 'quit' ? 'Quit' : 'Build'}  ·  {streak}-day streak  ·  {rate}%
         </Text>
         <View style={styles.bar}>
           <View style={[styles.fill, { width: `${rate}%`, backgroundColor: habit.color }]} />
         </View>
       </View>
       <View style={[styles.check, done && { backgroundColor: habit.color, borderColor: habit.color }]}>
-        <Text style={[styles.checkText, done && { color: '#0A0A0F' }]}>{done ? '✓' : ''}</Text>
+        {done && <MaterialCommunityIcons name="check" size={20} color="#0A0A0F" />}
       </View>
     </Pressable>
   );
@@ -57,10 +59,9 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   iconBox: { width: 52, height: 52, borderRadius: 16, alignItems: 'center', justifyContent: 'center', marginRight: 12 },
-  icon: { fontSize: 26 },
   mid: { flex: 1, marginRight: 10 },
-  name: { color: T.text, fontSize: 16, fontWeight: '700' },
-  sub: { color: T.dim, fontSize: 12, marginTop: 3 },
+  name: { color: T.text, fontSize: 16, fontFamily: F.bold },
+  sub: { color: T.dim, fontSize: 12, marginTop: 3, fontFamily: F.medium },
   bar: { height: 5, borderRadius: 3, backgroundColor: T.card2, marginTop: 8, overflow: 'hidden' },
   fill: { height: 5, borderRadius: 3 },
   check: {
@@ -72,5 +73,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  checkText: { color: T.text, fontSize: 18, fontWeight: '800' },
 });

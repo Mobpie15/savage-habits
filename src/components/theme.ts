@@ -13,5 +13,11 @@ export const T = {
   violet: '#A78BFA',
 };
 
-export const ICONS = ['🔥', '💧', '🏋️', '📚', '🧘', '🚭', '🍔', '📱', '💤', '🏃', '🎯', '💰', '🚶', '🌅', '📝', '🎮', '🚬', '☕'];
+export const F = {
+  regular: 'PlusJakartaSans_400Regular',
+  medium: 'PlusJakartaSans_500Medium',
+  bold: 'PlusJakartaSans_700Bold',
+  extra: 'PlusJakartaSans_800ExtraBold',
+};
+
 export const COLORS = ['#FFB020', '#FF5C5C', '#38BDF8', '#4ADE80', '#A78BFA', '#F472B6', '#FACC15', '#34D399'];

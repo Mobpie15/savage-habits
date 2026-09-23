@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { normalizeIcon } from '../components/icons';
 import { levelForXp, xpForCheckin } from '../lib/rewards';
 
 export type HabitKind = 'build' | 'quit';
@@ -38,10 +39,10 @@ type State = {
 export const uid = () => `${Date.now()}-${Math.floor(Math.random() * 1e6)}`;
 
 const starter: NewHabit[] = [
-  { name: 'Subah jaldi uthna', icon: '🌅', color: '#FFB020', kind: 'build', targetPerWeek: 6 },
-  { name: 'Smoking ZERO', icon: '🚭', color: '#FF5C5C', kind: 'quit', targetPerWeek: 7 },
-  { name: '2L Paani', icon: '💧', color: '#38BDF8', kind: 'build', targetPerWeek: 7 },
-  { name: '30 min walk', icon: '🚶', color: '#4ADE80', kind: 'build', targetPerWeek: 5 },
+  { name: 'Subah jaldi uthna', icon: 'sunrise', color: '#FFB020', kind: 'build', targetPerWeek: 6 },
+  { name: 'Smoking ZERO', icon: 'nosmoke', color: '#FF5C5C', kind: 'quit', targetPerWeek: 7 },
+  { name: '2L Paani', icon: 'water', color: '#38BDF8', kind: 'build', targetPerWeek: 7 },
+  { name: '30 min walk', icon: 'walk', color: '#4ADE80', kind: 'build', targetPerWeek: 5 },
 ];
 
 export const useHabits = create<State>()(
@@ -107,7 +108,16 @@ export const useHabits = create<State>()(
           };
         }),
     }),
-    { name: 'savage-habits-v1', storage: createJSONStorage(() => AsyncStorage) },
+    {
+      name: 'savage-habits-v1',
+      storage: createJSONStorage(() => AsyncStorage),
+      version: 2,
+      // v1.1 stored emoji icons — map to vector keys
+      migrate: (persisted: any) => ({
+        ...persisted,
+        habits: (persisted?.habits ?? []).map((h: any) => ({ ...h, icon: normalizeIcon(h.icon) })),
+      }),
+    },
   ),
 );
 

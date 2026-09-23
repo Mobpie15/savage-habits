@@ -118,7 +118,7 @@ export function moodCorrelation(
     const diff = onDone - onMiss;
     insight =
       diff >= 0.5
-        ? `Done wale din mood ${(diff).toFixed(1)}★ better hai. Mood low ho to chhota version kar.`
+        ? `Done wale din mood ${(diff).toFixed(1)} points better hai. Mood low ho to chhota version kar.`
         : diff <= -0.5
           ? 'Interesting — low mood wale din bhi kar raha hai. Beast mode.'
           : 'Mood se zyada routine matter kar rahi hai. Good sign.';
